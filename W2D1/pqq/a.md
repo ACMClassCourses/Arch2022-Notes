@@ -1,13 +1,17 @@
-## A "Typical" RISC
+> Given the writer's poor ability, if any part has a flaw, please don't hesitate to let me know. thx
+
+### A "Typical" RISC
 
 Several features:
 
 - 指令定长: 32-bit fixed format instruction (大体分为3类)
   
-  1. Arithmetic/Logic
+  1. Arithmetic/Logic: e.g. ADD
   
-  2. DataTransfer:
+  2. DataTransfer: e.g. LD/ST
 
+  3. Control: e.g. JMP/CALL
+  
 - 内存访问: Memory access only via load/store instructions
 
 - 32-bit GPR(general purpose register), also called `orthogonal register` (orthogonal意为相关性低)
@@ -46,6 +50,28 @@ Several features:
 
 - Delayed branch: the instruction following the branch is always executed before the PC is modified to perform the branch.
 
-![avatar](C:\Users\huawei\Desktop\ms\static\i1.jpg)
+### Computer Architecture Draft:
+![](static/signal-1.jpg)
 
+- CC(Central Control): accept an instruction and output several signals
 
+- CA: input/oprands + opecode $\rightarrow$ result 
+- M(Memory): $\text{R}/\bar{\text{W}}$
+
+  0: write  1: read
+
+## MIPS 5-steps Datapath
+
+### Arithmetic/Logic:
+
+![i1](static\i1.jpg)
+
+Rs1/Rs2/Rd are interpreted by 5bits. Because $2^5=32$ can represent 32 registers.
+
+CC: sends ADD command to ALU
+
+### DataTransfer:
+![i2](static\i2.jpg)
+
+### Control:
+![i3](static\i3.jpg)
