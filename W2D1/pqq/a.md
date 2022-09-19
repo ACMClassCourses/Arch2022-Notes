@@ -6,11 +6,11 @@ Several features:
 
 - 指令定长: 32-bit fixed format instruction (大体分为3类)
   
-  1. Arithmetic/Logic: e.g. ADD
+  1. Arithmetic/Logic: ADD...
   
-  2. DataTransfer: e.g. LD/ST
+  2. DataTransfer: LD/ST...
 
-  3. Control: e.g. JMP/CALL
+  3. Control: JMP/CALL...
   
 - 内存访问: Memory access only via load/store instructions
 
@@ -64,14 +64,14 @@ Several features:
 
 ### Arithmetic/Logic:
 
-![i1](static\i1.jpg)
+![i1](static/i1.jpg)
 
 Rs1/Rs2/Rd are interpreted by 5bits. Because $2^5=32$ can represent 32 registers.
 
 CC: sends ADD command to ALU
 
 ### DataTransfer:
-![i2](static\i2.jpg)
+![i2](static/i2.jpg)
 
 ### Control:
-![i3](static\i3.jpg)
+![i3](static/i3.jpg)
