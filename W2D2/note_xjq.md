@@ -80,7 +80,7 @@ WAR and WAW can't happen in MIPS 5 stage pipeline because
 - reads are always in stage 2
 - writes are always in stage 5
 
-However,If the instruction is executed out of order, this will cause a problem.
+However, if the instruction is executed out of order, this will cause a problem.
 
 #### solution
 
