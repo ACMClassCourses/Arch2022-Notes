@@ -56,7 +56,7 @@ chip pins to place on the chip. To solve the problem, we transmit the address tw
 
 **The process  is as follows.**
 
-<img src="https://ts1.cn.mm.bing.net/th/id/R-C.de1e0979fc4f039f22a5579f887dd04f?rik=p8S6kEQXrG%2f1rA&riu=http%3a%2f%2fimage.slideserve.com%2f210382%2fdram-read-timing-l.jpg&ehk=Hxe3LqNsi2lsgzbMjyolNSetXOwa%2bI67RR0%2f5dz4zzg%3d&risl=&pid=ImgRaw&r=0" alt="查看源图像" style="zoom:50%;" />
+<img src="https://ts1.cn.mm.bing.net/th/id/R-C.de1e0979fc4f039f22a5579f887dd04f?rik=p8S6kEQXrG%2f1rA&riu=http%3a%2f%2fimage.slideserve.com%2f210382%2fdram-read-timing-l.jpg&ehk=Hxe3LqNsi2lsgzbMjyolNSetXOwa%2bI67RR0%2f5dz4zzg%3d&risl=&pid=ImgRaw&r=0" alt="DRAM" style="zoom:50%;" />
 
 - CAS_L: Column Address Select
 
