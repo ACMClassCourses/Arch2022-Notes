@@ -80,6 +80,7 @@ Cache 和 Buffer 不同。*Cache* 是利用局部性原理缓存一部分数据�
 - $A[4:0]$ 表示所需数据在块中的字节偏移量（*Byte Select*）。
 
 - $A[31:5]$ 即为所需数据所在的块在内存中是第几个块（*Block Address*）。根据直接映射的规则，这个块对应到 Cache 中的块的位置（index）为 
+  
   $$ A[31:5]\bmod 32=A[9:5]. $$
 
   > 在命中（hit）情况下，*Cache Index* + *Byte Select* 即可确定所需字节在 Cache 上的位置。
