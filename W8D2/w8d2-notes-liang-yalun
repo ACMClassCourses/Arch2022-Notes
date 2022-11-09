@@ -1,0 +1,11 @@
+Q: Address translation 应该在 L1 cache 之前还是之后?
+如果在之前的话就会有一定的 hit time penalty (没有 TLB 的话会消耗整整一个访存时间).
+如果在之后的话, L1 cache 里存的是虚拟地址, 当页表里把一个 physical address 映射到多个 virtual address 的时候 L1 cache 就会是无效的; Context switching 的时候也会比较麻烦, 因为可能有同一个 virtual address 映射到不同的 physical address.
+
+对于同一 phy addr 映射到多个 virt addr 的问题, 有两种解决方法:
+1) 使得 cache 的 index bits 只取决于内存分页内的地址; 就是说, 让 virtual / physical page number 包含于 cache tag 之中, 这样两个 virt addr 在 L1 cache 中一定会映射到同一个 cache line 上.
+2) 让软件保证 page table 里 physical address 和 virtual address 的某一位一定相同, 这样两个 virt addr 也一定会映射到同一个 cache line.
+
+对于 context switching 的问题, 可以让 kernel 提供一个当前的 page table id (一般用 process id) 作为 cache tag 的一部分.
+
+为了减少 translation 的时间引入了 TLB (Translation Lookaside Buffer), 是一个 fully-associative 的 page table cache, 项数比较少.
