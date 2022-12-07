@@ -1,0 +1,15 @@
+Outline: 上节课讲了 Dynamic OoO (Tomasulo+ROB)；乱序执行有两种方式，还可以进行静态的乱序执行，通过编译器优化来做。这节课回到之前跳过的网络、分布式。
+
+分布式：指计算系统的控制是多方的。
+
+
+Snoopy 协议: 解决 coherence 问题. 想想一个典型的 SMP 架构：多个处理器共用一块内存. 每个处理器都有自己的 cache，这些 cache 都是它们独有的. 假设 P1 读了 mem[x]，做了一个修改，此时 P1 cache[x] != mem[x] (这是 inconsistency); 如果此时 P2 也从内存读了 mem[x], 则 P2 cache[x] != P1 cache[x]，这种状态叫做 non-coherence. 即使我们用 write-thru cache，nonconherence 的问题仍然存在，例如 P1 load mem[x], P2 load mem[x], P1 modify cache[x]. 解决方案有集中式和分布式两种. 一种就是 snoopy protocol，每个处理器进行监听，独立地作出决定；另一种是集中式的 directory-based, 它的主要问题是集中点会造成瓶颈.
+
+Snoopy cache 的核心是一个状态机，每个 cache line 都记录一个状态, 状态有 Invalid Shared Exclusive (ESI) 三种, 后面也有改进的版本 (MESI, M for Mutual). 最开始所有 line 都是 invalid. 当 CPU 从内存读了数据，此时进入 shared 状态；一旦 cpu 做了写操作，就进入 exclusive 状态. 当其他人有过时的数据 (例如一个 CPU 写了 shared 状态的数据), 那么其他 cpu 的应对有两种处理方案: 一是让它们全部变为 invalid (称作 invalid 方案); 另一种是让它们直接拿到更新后的数据 (称作 update 方案). 从硬件实现来说, 大多用 invalid 方案, 这样不会打断 cpu 原有状态.
+
+当一个 cpu 做了写操作之后, 它会向总线广播一个 write miss 消息, 此时所有其他 cpu cache 里 shared 状态的 cache line 就变为了 invalid. 读操作之后会广播一个 read miss. 当其他 cpu 收到 miss 消息之后就会作出相应进入相应的状态, 或者打断对应的读写操作.
+
+
+consistency model: 目前没有完美的模型. 现在有 Pi 和 Pj 两个进程. Pi: b = 0, a = 1, print(b); Pj: a = 0, b = 1, print(a). 此时 Pi 和 Pj 可能都输出 0，因为内存的 inconsistency.
+
+几个概念: SMP / Cluster / Grid / Cloud.
