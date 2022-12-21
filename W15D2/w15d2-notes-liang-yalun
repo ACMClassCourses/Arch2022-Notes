@@ -1,0 +1,33 @@
+RAID01 与 RAID10:
+
+trait Disk
+class PhysicalDisk extends Disk
+class Raid0(val disks: List[Disk]) extends Disk
+class Raid1(val disk1: Disk, val disk2: Disk) extends Disk
+def raid01(phy1: List[PhysicalDisk], phy2: List[PhysicalDisk]) =
+  new Raid1(Raid0(phy1), Raid0(phy2))
+def raid10(phy1: List[PhysicalDisk], phy2: List[PhysicalDisk]) =
+  new Raid0(phy1.zip(phy2).map(x => new Raid1(x._1, x._2)))
+
+
+内存一致性模型：
+
+- 强一致性模型 / 无手动同步：
+  - 严格一致性模型: 内存访问严格按照物理时间顺序进行
+  - sequential model: 所有 process 对于同一个内存地址看到的是同样的序列
+  - causal model: 只关心对于一个 process 来说因果顺序不颠倒
+  - pipelined ram / pram: 逻辑上所有访存是通过一个队列进行的
+- weak consistency: 通过 fence 来手动同步
+
+例:
+
+^ Process
+| P1  x <- 1                  x <- 3
+| P2          x -> 1  x <- 2
+| P3          x -> 1                  x -> 3  x -> 2
+| P4          x -> 1                  x -> 2  x -> 3
++---------------------------------------------> time
+
+(note: x <- 1 <=> write(x, 1); x -> 1 <=> read(x) returns 1)
+
+这个模型不满足严格或者 sequential 模型, 但是满足 causal 模型.
